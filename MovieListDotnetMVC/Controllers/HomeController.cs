@@ -1,4 +1,8 @@
-﻿using System;
+﻿using MovieListDotnetMVC.DatabaseContext;
+using MovieListDotnetMVC.Models;
+using MovieListDotnetMVC.Repositorys;
+using MovieListDotnetMVC.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +12,21 @@ namespace MovieListDotnetMVC.Controllers
 {
     public class HomeController : Controller
     {
+        MovieService movieService = new MovieService();
+
+        private MovieDbContext db = new MovieDbContext();
+
         public ActionResult Index()
         {
-            return View();
+            ICollection<Movie> movies = movieService.ListOfMovies().Movies;
+            return View(movies);
         }
 
-        public ActionResult About()
+        public ActionResult Details(Guid id)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            Movie movie = movieService.DetailsOfMovie(id);
+            return View(movie);
         }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        
     }
 }
