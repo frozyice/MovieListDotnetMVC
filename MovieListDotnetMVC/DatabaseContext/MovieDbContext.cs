@@ -22,6 +22,9 @@ namespace MovieListDotnetMVC.DatabaseContext
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<Movie>()
+                .HasOptional(m => m.Category)
+                .WithOptionalDependent(c => c.Movie);
         }
 
     }

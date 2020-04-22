@@ -10,8 +10,28 @@ namespace MovieListDotnetMVC.DatabaseContext
 {
     public class MovieDbInitializer : DropCreateDatabaseIfModelChanges<MovieDbContext>
     {
+        Category horror;
+        Category romance;
+        Category fantasy;
+
         protected override void Seed(MovieDbContext context)
         {
+            context.Categories.AddOrUpdate(
+                n => n.Name,
+                horror = new Category
+                {
+                    Name = "Horror"
+                },
+                romance = new Category
+                {
+                    Name = "Romance"
+                },
+                fantasy = new Category
+                {
+                    Name = "Fantasy"
+                }
+                );
+
             context.Movies.AddOrUpdate(
                 x => x.Title,
                 new Movie
@@ -20,7 +40,7 @@ namespace MovieListDotnetMVC.DatabaseContext
                     Year = 1984,
                     Description = "The monstrous spirit of a slain child murderer seeks revenge by invading the dreams of teenagers whose parents were responsible for his untimely death.",
                     Rating = 76,
-                    Category = new Category { Name = "Horror" },
+                    Category = horror
                 },
                 new Movie
                 {
@@ -28,7 +48,7 @@ namespace MovieListDotnetMVC.DatabaseContext
                     Year = 2004,
                     Description = "A cockney womanizer learns the hard way about the dangers of his actions.",
                     Rating = 49,
-                    Category = new Category { Name = "Romance" },
+                    Category = romance
                 },
                 new Movie
                 {
@@ -36,7 +56,7 @@ namespace MovieListDotnetMVC.DatabaseContext
                     Year = 2009,
                     Description = "A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.",
                     Rating = 83,
-                    Category = new Category { Name = "Fantasy" },
+                    Category = fantasy
                 }
                 );
         }
